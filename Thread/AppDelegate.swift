@@ -8,14 +8,18 @@
 
 import UIKit
 
+import Fabric
+import Firebase
+import TwitterKit
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, FirebaseConfigurable {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        Fabric.with([Twitter.self])
+        configureFirebase()
         return true
     }
 
@@ -40,7 +44,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+}
 
+public protocol FirebaseConfigurable: class {
+    var servicesFileName: String { get }
+    
+    func configureFirebase()
+}
 
+public extension FirebaseConfigurable {
+    internal var bundle: Bundle {
+        return Bundle(for: type(of: self) as AnyClass)
+    }
+    
+    internal var servicesFileName: String {
+        return bundle.infoDictionary!["Google Services File"] as! String
+    }
+    
+    public func configureFirebase() {
+        guard FIRApp.defaultApp() == nil else { return }
+        
+        let options = FIROptions(contentsOfFile: bundle.path(forResource: servicesFileName, ofType: "plist"))!
+        FIRApp.configure(with: options)
+    }
 }
 
