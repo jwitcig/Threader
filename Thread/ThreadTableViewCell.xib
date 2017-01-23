@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,9 +53,7 @@
                             <constraint firstAttribute="trailing" secondItem="9jR-9a-sMp" secondAttribute="trailing" constant="10" id="bMy-Zg-g8H"/>
                             <constraint firstItem="9jR-9a-sMp" firstAttribute="leading" secondItem="f6Q-8m-IQJ" secondAttribute="leading" constant="10" id="zzm-Pe-R27"/>
                         </constraints>
-                        <vibrancyEffect>
-                            <blurEffect style="dark"/>
-                        </vibrancyEffect>
+                        <blurEffect style="extraLight"/>
                     </visualEffectView>
                 </subviews>
                 <constraints>
