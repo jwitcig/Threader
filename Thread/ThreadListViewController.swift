@@ -25,7 +25,7 @@ class ThreadListViewController: UIViewController {
         super.viewDidLoad()
         
         let databaseRef = FIRDatabase.database().reference()
-        databaseRef.child("threads").observeSingleEvent(of: .value, with: {
+        databaseRef.child("threads").observe(.value, with: {
             self.threads = ($0.children.allObjects as! [FIRDataSnapshot]).map(Thread.init)
         })
     }
@@ -45,7 +45,7 @@ extension ThreadListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = ConversationTableViewController()
+        let controller = ConversationViewController()
         controller.thread = threads[indexPath.row]
         controller.hidesBottomBarWhenPushed = true
         navigationController!.pushViewController(controller, animated: true)

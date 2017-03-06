@@ -17,10 +17,9 @@ target 'Thread' do
   pod 'Fabric'
   pod 'TwitterKit'
 
-  pod 'JSQMessagesViewController'
   pod 'Cartography'
 
-  pod 'SwiftTools', :git => 'https://github.com/jwitcig/SwiftTools'
+  pod 'SwiftTools'
 
   target 'ThreadTests' do
     inherit! :search_paths
