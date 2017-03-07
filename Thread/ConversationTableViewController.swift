@@ -10,7 +10,9 @@ import MobileCoreServices
 import UIKit
 
 import Cartography
+import FirebaseAuth
 import FirebaseDatabase
+import FirebaseMessaging
 
 struct Conversation {
     let firstName: String?
@@ -28,6 +30,8 @@ class ConversationViewController: UIViewController {
     var conversation: Conversation?
     
     var thread: Thread!
+    
+    var bottomToolbarBottomConstraint: ConstraintGroup!
     
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -54,21 +58,29 @@ class ConversationViewController: UIViewController {
         return button
     }()
     
+    lazy var mainStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [self.collectionView, self.bottomStack])
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.distribution = .fill
+        return stack
+    }()
+    
+    lazy var bottomStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [self.textField, self.sendButton])
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .fill
+        return stack
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let bottomStack = UIStackView(arrangedSubviews: [textField, sendButton])
-        bottomStack.axis = .horizontal
-        bottomStack.alignment = .fill
-        bottomStack.distribution = .fill
+        NotificationCenter.default.addObserver(self, selector: #selector( ConversationViewController.keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
-        let stackView = UIStackView(arrangedSubviews: [collectionView, bottomStack])
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-
-        view.addSubview(stackView)
-        constrain(stackView, view) {
+        view.addSubview(mainStack)
+        constrain(mainStack, view) {
             $0.top == $1.topMargin
             $0.bottom == $1.bottom
             $0.leading == $1.leading
@@ -81,6 +93,12 @@ class ConversationViewController: UIViewController {
         constrain(textField) {
             $0.height == 44
         }
+        
+        let databaseRef = FIRDatabase.database().reference()
+        let activeRef = databaseRef.child("active")
+        let currentActivityRef = activeRef.child(thread.name).child(FIRAuth.auth()!.currentUser!.uid)
+        currentActivityRef.setValue(true)
+        currentActivityRef.onDisconnectRemoveValue()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,13 +110,17 @@ class ConversationViewController: UIViewController {
             self.messages.append(Message(snapshot: $0))
             
             self.collectionView.reloadData()
-//            .sorted { $0.timestamp.compare($1.timestamp) == .orderedAscending })
             
             let finalPath = IndexPath(row: self.messages.count-1, section: 0)
             self.collectionView.scrollToItem(at: finalPath, at: .bottom, animated: true)
         })
-        
-
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        let databaseRef = FIRDatabase.database().reference()
+        let activeRef = databaseRef.child("active")
+        let currentActivityRef = activeRef.child(thread.name).child(FIRAuth.auth()!.currentUser!.uid)
+        currentActivityRef.removeValue()
     }
     
     func setupBackButton() {
@@ -152,6 +174,19 @@ class ConversationViewController: UIViewController {
         let message = Message(key: path.key, creator: "jwitcig", body: text)
         path.setValue(message.dictionary)
     }
+    
+    func keyboardDidShow(notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect else { return }
+        
+        print(keyboardFrame.height)
+        
+        
+        constrain(mainStack) { (view: LayoutProxy) -> Void in
+            view.bottom == view.superview!.bottom - keyboardFrame.height
+        }
+        
+        view.layoutIfNeeded()
+    }
 }
 
 extension ConversationViewController: UICollectionViewDataSource {
@@ -185,14 +220,14 @@ extension ConversationViewController: UICollectionViewDataSource {
 
 extension ConversationViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 80)
+        return CGSize(width: collectionView.frame.width, height: 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 5
     }
 }

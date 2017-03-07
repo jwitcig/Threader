@@ -10,6 +10,8 @@ import MobileCoreServices
 import UIKit
 
 import Cartography
+import FirebaseAuth
+import FirebaseDatabase
 
 class NewThreadViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameField: UITextField!
@@ -32,6 +34,13 @@ class NewThreadViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         tableView.isHidden = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(NewThreadViewController.viewTapped(recognizer:)))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func viewTapped(recognizer: UIGestureRecognizer) {
+        nameField.resignFirstResponder()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -48,6 +57,16 @@ class NewThreadViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func uploadBannerPressed(sender: AnyObject) {
         present(mediaPicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func donePressed(sender: Any) {
+        guard let uid = FIRAuth.auth()?.currentUser?.uid else { return }
+        
+        let threadName = nameField.text ?? ""
+        let thread = Thread(name: threadName, creator: uid, icon: nil, banner: nil)
+        
+        let databaseRef = FIRDatabase.database().reference()
+        databaseRef.child("threads/"+threadName).setValue(thread.dictionary)
     }
 }
 
@@ -79,8 +98,8 @@ extension NewThreadViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ThreadTableViewCell") as? ThreadTableViewCell ?? Bundle.main.loadNibNamed("ThreadTableViewCell", owner: nil, options: nil)![0] as! ThreadTableViewCell
         
         cell.thread = Thread(name: nameField.text ?? "",
-                           creator: "jwitcig",
-                           icon: nil,
+                          creator: "jwitcig",
+                             icon: nil,
                            banner: banner)
         return cell
     }
@@ -96,6 +115,6 @@ extension NewThreadViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        return 100
     }
 }

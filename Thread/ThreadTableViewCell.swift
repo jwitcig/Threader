@@ -14,12 +14,20 @@ class ThreadTableViewCell: UITableViewCell {
     override var reuseIdentifier: String? { return "ThreadTableViewCell" }
     
     @IBOutlet weak var threadNameLabel: UILabel!
+    @IBOutlet weak var activeUserCountLabel: UILabel!
+    
     @IBOutlet weak var bannerView: UIImageView!
     
     var thread: Thread! {
         didSet {
             threadNameLabel.text = thread.name
 //            bannerView.image = thread.banner
+        }
+    }
+    
+    var activeUsers: Int? {
+        didSet {
+            activeUserCountLabel.text = activeUsers?.string
         }
     }
     

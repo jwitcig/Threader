@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -36,7 +36,22 @@
                                 </label>
                                 <view alpha="0.14999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDf-G7-OBV">
                                     <rect key="frame" x="0.0" y="0.0" width="367" height="38.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RH-om-hC7">
+                                            <rect key="frame" x="325" y="9" width="34" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="34" id="cjb-KN-j13"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="0RH-om-hC7" firstAttribute="centerY" secondItem="pDf-G7-OBV" secondAttribute="centerY" id="gtr-m0-4gY"/>
+                                        <constraint firstAttribute="trailing" secondItem="0RH-om-hC7" secondAttribute="trailing" constant="8" id="pb7-i5-OSU"/>
+                                    </constraints>
                                 </view>
                             </subviews>
                             <constraints>
@@ -68,6 +83,7 @@
             </tableViewCellContentView>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
+                <outlet property="activeUserCountLabel" destination="0RH-om-hC7" id="qzy-Cv-e9r"/>
                 <outlet property="bannerView" destination="PnN-J8-u2e" id="QTf-Ku-mAv"/>
                 <outlet property="threadNameLabel" destination="9jR-9a-sMp" id="1MZ-iY-LTb"/>
             </connections>

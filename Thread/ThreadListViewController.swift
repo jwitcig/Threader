@@ -27,7 +27,29 @@ class ThreadListViewController: UIViewController {
         let databaseRef = FIRDatabase.database().reference()
         databaseRef.child("threads").observe(.value, with: {
             self.threads = ($0.children.allObjects as! [FIRDataSnapshot]).map(Thread.init)
+            
+            self.updateActiveUsersCounts(for: self.threads)
         })
+    }
+    
+    func updateActiveUsersCounts(for threads: [Thread]) {
+        
+        for thread in threads {
+            
+            let databaseRef = FIRDatabase.database().reference()
+            databaseRef.child("active/"+thread.name).observe(.value, with: { snapshot in
+                
+                self.tableView.visibleCells.forEach {
+                    if let threadCell = $0 as? ThreadTableViewCell,
+                        threadCell.thread.name == thread.name {
+                        
+                        threadCell.activeUsers = Int(snapshot.childrenCount)
+                    }
+                }
+                
+            })
+        }
+        
     }
 }
 
@@ -49,6 +71,8 @@ extension ThreadListViewController: UITableViewDelegate {
         controller.thread = threads[indexPath.row]
         controller.hidesBottomBarWhenPushed = true
         navigationController!.pushViewController(controller, animated: true)
+        
+        tableView.selectRow(at: nil, animated: true, scrollPosition: .none)
     }
 }
 
