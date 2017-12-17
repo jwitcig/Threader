@@ -12,6 +12,7 @@ import UserNotifications
 import Fabric
 import Firebase
 import FirebaseMessaging
+import OneSignal
 import TwitterKit
 
 @UIApplicationMain
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FirebaseConfigurable, UNU
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Twitter.self])
         configureFirebase()
+        
+        OneSignal.initWithLaunchOptions(launchOptions, appId: "39938934-a6fa-404a-be31-92d0656286d8")
         
         // Messaging
         
@@ -46,6 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FirebaseConfigurable, UNU
         application.registerForRemoteNotifications()
         
         connectToFCM()
+
+        
+        // Sync hashed email if you have a login system or collect it.
+        //   Will be used to reach the user at the most optimal time of day.
+        // OneSignal.syncHashedEmail(userEmail)
         
         return true
     }
@@ -101,6 +109,8 @@ extension AppDelegate: FIRMessagingDelegate {
             return
         }
         
+        
+        
         let uid = FIRAuth.auth()!.currentUser!.uid
         FIRDatabase.database().reference().child("users/"+uid).setValue(token)
         
@@ -112,6 +122,29 @@ extension AppDelegate: FIRMessagingDelegate {
                 print("Unable to connect with FCM. \(error)")
             } else {
                 print("Connected to FCM.")
+                
+                for _ in 0..<50 {
+
+//                    FIRMessaging.messaging().sendMessage([
+//                        "contents" : ["en": "Test Message"],
+//                        "to": "bb981db7-c2fa-4447-b78d-018069c1ab0e",
+//                    ], to: "418943937573@gcm.googleapis.com", withMessageID: "1216513ge", timeToLive: 0)
+                    
+                    FIRMessaging.messaging().subscribe(toTopic: "some-convo")
+                    
+                    
+//                    OneSignal.postNotification([
+//                        "contents" : ["en": "Test Message"],
+//                        "include_player_ids": ["bb981db7-c2fa-4447-b78d-018069c1ab0e"],
+//                    ], onSuccess: { _ in
+//                        
+//                    }, onFailure: { error in
+//                        print("Error!!!: \(error)")
+//                    })
+                    
+//                    OneSignal.sendTag("test-tag", value: "value1")
+                }
+
             }
         }
     }

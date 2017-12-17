@@ -46,14 +46,14 @@ class ConversationViewController: UIViewController {
     
     lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .white
+        textField.backgroundColor = .lightGray
         return textField
     }()
     
     lazy var sendButton: UIButton = {
         let button = UIButton()
         button.setTitle("send", for: .normal)
-        
+        button.setTitleColor(.blue, for: .normal)
         button.addTarget(self, action: #selector(ConversationViewController.sendPressed(_:)), for: .touchUpInside)
         return button
     }()
@@ -74,29 +74,51 @@ class ConversationViewController: UIViewController {
         return stack
     }()
     
+    lazy var backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = thread.name
+        
+        view.backgroundColor = .white
+        
         NotificationCenter.default.addObserver(self, selector: #selector( ConversationViewController.keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        
+        backgroundImageView.image = UIImage(data: try! NSData(contentsOf: URL(string: "https://is4-ssl.mzstatic.com/image/thumb/Purple122/v4/94/cc/bb/94ccbb67-d34d-70e2-ce37-564361166d91/source/512x512bb.jpg")!) as Data)
+        
+        view.addSubview(backgroundImageView)
+        constrain(backgroundImageView, view) {
+            $0.center == $1.center
+            $0.size == $1.size
+        }
         
         view.addSubview(mainStack)
         constrain(mainStack, view) {
-            $0.top == $1.topMargin
+            $0.top == $1.top + 64
             $0.bottom == $1.bottom
             $0.leading == $1.leading
             $0.trailing == $1.trailing
         }
         
-        collectionView.backgroundView?.backgroundColor = .gray
-        collectionView.backgroundColor = .red
+        collectionView.backgroundView?.backgroundColor = .clear
+        collectionView.backgroundColor = .clear
         
         constrain(textField) {
             $0.height == 44
         }
         
+        constrain(sendButton) {
+            $0.width == 60
+        }
+        
         let databaseRef = FIRDatabase.database().reference()
         let activeRef = databaseRef.child("active")
-        let currentActivityRef = activeRef.child(thread.name).child(FIRAuth.auth()!.currentUser!.uid)
+        let currentActivityRef = activeRef.child(thread.key).child(FIRAuth.auth()!.currentUser!.uid)
         currentActivityRef.setValue(true)
         currentActivityRef.onDisconnectRemoveValue()
     }
@@ -106,7 +128,7 @@ class ConversationViewController: UIViewController {
         
         let databaseRef = FIRDatabase.database().reference()
         self.messages = []
-        databaseRef.child("messages/"+thread.name).observe(.childAdded, with: {
+        databaseRef.child("messages/"+thread.key).observe(.childAdded, with: {
             self.messages.append(Message(snapshot: $0))
             
             self.collectionView.reloadData()
@@ -119,7 +141,7 @@ class ConversationViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         let databaseRef = FIRDatabase.database().reference()
         let activeRef = databaseRef.child("active")
-        let currentActivityRef = activeRef.child(thread.name).child(FIRAuth.auth()!.currentUser!.uid)
+        let currentActivityRef = activeRef.child(thread.key).child(FIRAuth.auth()!.currentUser!.uid)
         currentActivityRef.removeValue()
     }
     
@@ -169,7 +191,7 @@ class ConversationViewController: UIViewController {
         guard text.characters.count > 0 else { return }
         
         let databaseRef = FIRDatabase.database().reference()
-        let path = databaseRef.child("messages/"+thread.name).childByAutoId()
+        let path = databaseRef.child("messages/"+thread.key).childByAutoId()
         
         let message = Message(key: path.key, creator: "jwitcig", body: text)
         path.setValue(message.dictionary)
@@ -177,9 +199,6 @@ class ConversationViewController: UIViewController {
     
     func keyboardDidShow(notification: Notification) {
         guard let keyboardFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect else { return }
-        
-        print(keyboardFrame.height)
-        
         
         constrain(mainStack) { (view: LayoutProxy) -> Void in
             view.bottom == view.superview!.bottom - keyboardFrame.height
@@ -207,7 +226,7 @@ extension ConversationViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath)
         cell.contentView.subviews.forEach { $0.removeFromSuperview() }
-        cell.backgroundColor = .white
+        cell.backgroundColor = .clear
         cell.contentView.addSubview(label)
         constrain(label, cell.contentView) {
             $0.center == $1.center

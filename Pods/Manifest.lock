@@ -53,6 +53,7 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
+  - OneSignal (2.3.4)
   - SwiftTools (1.1.14)
   - TwitterCore (2.6.1):
     - Fabric
@@ -67,6 +68,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Messaging
+  - OneSignal
   - SwiftTools
   - TwitterKit
 
@@ -84,10 +86,11 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
+  OneSignal: c8f0d08ffa30fcf751c97a29639725877027e788
   SwiftTools: 7a939412623b14bf5e49b5b875bd3e6f85ef6f0e
   TwitterCore: a8aea8bdaf2abd6572c8f264707a4ea4dc2d0eab
   TwitterKit: d38c08d31dfd4ba604f95deca6cf8e174b5cbd96
 
-PODFILE CHECKSUM: 3f9b8cb9560ade593044c3c4dc534e4e9e1c0b1c
+PODFILE CHECKSUM: 553c219a82a83caf4ab7b39dc074f3bb3edc0d21
 
 COCOAPODS: 1.1.1

@@ -37,7 +37,7 @@ class ThreadListViewController: UIViewController {
         for thread in threads {
             
             let databaseRef = FIRDatabase.database().reference()
-            databaseRef.child("active/"+thread.name).observe(.value, with: { snapshot in
+            databaseRef.child("active/"+thread.key).observe(.value, with: { snapshot in
                 
                 self.tableView.visibleCells.forEach {
                     if let threadCell = $0 as? ThreadTableViewCell,

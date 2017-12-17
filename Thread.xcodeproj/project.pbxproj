@@ -30,6 +30,7 @@
 		8B7761F51DEFECB600B36FA4 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7761F41DEFECB600B36FA4 /* CreateAccountViewController.swift */; };
 		8B7761F71DEFF1F900B36FA4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7761F61DEFF1F900B36FA4 /* User.swift */; };
 		8B7D83151E6E53C000AC0413 /* PrivateThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D83141E6E53C000AC0413 /* PrivateThread.swift */; };
+		8B7E66081E7081CE00513CDF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7E66071E7081CE00513CDF /* SearchViewController.swift */; };
 		E3F370A028D3DE1058E6137D /* Pods_ThreadTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F2A38C65F0B80B66C63E97 /* Pods_ThreadTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		8B7761F61DEFF1F900B36FA4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8B7D83131E6E402100AC0413 /* Thread.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Thread.entitlements; sourceTree = "<group>"; };
 		8B7D83141E6E53C000AC0413 /* PrivateThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateThread.swift; sourceTree = "<group>"; };
+		8B7E66071E7081CE00513CDF /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		BFA7B39025701DE6AB447677 /* Pods-Thread.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Thread.release.xcconfig"; path = "Pods/Target Support Files/Pods-Thread/Pods-Thread.release.xcconfig"; sourceTree = "<group>"; };
 		C1F9C91E277932E8552F1064 /* Pods-ThreadTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThreadTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ThreadTests/Pods-ThreadTests.release.xcconfig"; sourceTree = "<group>"; };
 		C74A85CD5A19098ADD3873EB /* Pods_Thread.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Thread.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +158,7 @@
 				8B7D83131E6E402100AC0413 /* Thread.entitlements */,
 				8B6B4EB61DECE9B300C8FB30 /* AppDelegate.swift */,
 				8B6B4EB81DECE9B300C8FB30 /* ThreadListViewController.swift */,
+				8B7E66071E7081CE00513CDF /* SearchViewController.swift */,
 				8B6B4EBA1DECE9B300C8FB30 /* SecondViewController.swift */,
 				8B6B4EE61DECEDE000C8FB30 /* Thread.swift */,
 				8B7D83141E6E53C000AC0413 /* PrivateThread.swift */,
@@ -514,6 +517,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B7E66081E7081CE00513CDF /* SearchViewController.swift in Sources */,
 				8B6B4F0F1DEE137A00C8FB30 /* MessageTableViewCell.swift in Sources */,
 				8B6B4EBB1DECE9B300C8FB30 /* SecondViewController.swift in Sources */,
 				8B75011B1DF0DAFB00D8A0B5 /* AccountViewController.swift in Sources */,

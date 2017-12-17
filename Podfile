@@ -15,6 +15,8 @@ target 'Thread' do
   pod 'Firebase/Database'
   pod 'Firebase/Messaging'
 
+  pod 'OneSignal'
+
   pod 'Fabric'
   pod 'TwitterKit'
 

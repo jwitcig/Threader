@@ -134,7 +134,7 @@
             </objects>
             <point key="canvasLocation" x="2364" y="-296"/>
         </scene>
-        <!--Second-->
+        <!--Account-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="AccountViewController" customModule="Thread" customModuleProvider="target" sceneMemberID="viewController">
@@ -162,14 +162,14 @@
                             <constraint firstItem="nzN-F9-IrU" firstAttribute="width" secondItem="QS5-Rx-YEW" secondAttribute="width" id="leC-Jm-0Kf"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Account" image="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="imageView" destination="czS-uJ-CrD" id="RKW-8Y-Tyn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.60000000000002" y="359.37031484257875"/>
+            <point key="canvasLocation" x="750" y="1044"/>
         </scene>
         <!--Create Account View Controller-->
         <scene sceneID="zsq-rL-mDM">
@@ -243,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sdz-Q9-Bcc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1549.5999999999999" y="358.4707646176912"/>
+            <point key="canvasLocation" x="1550" y="1043"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -259,6 +259,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="aGl-yg-BnZ" kind="relationship" relationship="viewControllers" id="eUR-Bu-ii7"/>
+                        <segue destination="U7h-GV-kg9" kind="relationship" relationship="viewControllers" id="G9I-Db-WaH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
                 </tabBarController>
@@ -266,11 +267,46 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--Item-->
+        <!--Search-->
+        <scene sceneID="oUG-nt-OGY">
+            <objects>
+                <viewController id="U7h-GV-kg9" customClass="SearchViewController" customModule="Thread" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dED-Ot-1oa"/>
+                        <viewControllerLayoutGuide type="bottom" id="j1k-C0-icl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bsI-Rs-Ck0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="tags" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VqQ-dq-emg">
+                                <rect key="frame" x="0.0" y="59" width="375" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VqQ-dq-emg" firstAttribute="width" secondItem="bsI-Rs-Ck0" secondAttribute="width" id="2e2-6g-t70"/>
+                            <constraint firstItem="VqQ-dq-emg" firstAttribute="centerX" secondItem="bsI-Rs-Ck0" secondAttribute="centerX" id="6D8-fP-t97"/>
+                            <constraint firstItem="VqQ-dq-emg" firstAttribute="top" secondItem="dED-Ot-1oa" secondAttribute="bottom" constant="39" id="jsg-Fe-wA3"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Search" id="Pe0-WP-45P"/>
+                    <connections>
+                        <outlet property="searchField" destination="VqQ-dq-emg" id="TcY-Ct-a3d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eQf-Zj-q7m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="749.60000000000002" y="353.9730134932534"/>
+        </scene>
+        <!--World-->
         <scene sceneID="owt-NW-HgX">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aGl-yg-BnZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="hc8-d8-nOS"/>
+                    <tabBarItem key="tabBarItem" title="World" id="hc8-d8-nOS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Q7o-DT-MSV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
